@@ -6,7 +6,8 @@ import Link from "next/link";
             <ul className="news-list">
                 {news.map((newsItem) => (
                     <li key={newsItem.id} >
-                        <Link href = {`/news/${newsItem.image}`}>
+                        {/* Fixed this one */}
+                        <Link href = {`/news/${newsItem.slug}`}>
                             <img src = {`/images/news/${newsItem.image}`} />
                             <span>{newsItem.title}</span>
                         </Link>
@@ -16,3 +17,5 @@ import Link from "next/link";
             </ul>
         );
     }
+
+    
