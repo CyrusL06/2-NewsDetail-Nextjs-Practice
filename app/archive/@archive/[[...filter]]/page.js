@@ -11,7 +11,8 @@ import NewsList from '@/components/main-header/news-list';
 
 export default function FilteredNewsPage({ params }) {
   const filter = params.filter;
-
+  
+  
   const selectedYear = filter?.[0];
   const selectedMonth = filter?.[1];
 
@@ -33,6 +34,17 @@ export default function FilteredNewsPage({ params }) {
   if (news && news.length > 0) {
     newsContent = <NewsList news={news} />;
   }
+
+  // Throws invalid path segment for selected Year && Month
+  // if we have selectedYear which does not includes in (selectedYear)
+  if (
+    (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
+    (selectedMonth &&
+      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
+  ) {
+    throw new Error('Invalid filter.');
+  }
+
 
   return (
     <>

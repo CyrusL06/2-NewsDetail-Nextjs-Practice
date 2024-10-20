@@ -1,3 +1,6 @@
+// Functionality
+
+
 import { DUMMY_NEWS } from '@/dummy-news';
 
 export function getAllNews() {
