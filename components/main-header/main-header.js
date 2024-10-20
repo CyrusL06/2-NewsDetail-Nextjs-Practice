@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NavLink from "../nav-link";
 
     export default function Header(){
         return (
@@ -7,10 +8,18 @@ import Link from "next/link";
                <li><Link href="/" >NextNews</Link> </li>
               </div>
               <ul>
-                   <nav>
-                       <li><Link href="/news" >News</Link> </li>
-                  </nav>
-               </ul> 
+                {/* Took out the nav eleement since its the only one who needs Clients */}
+                <nav>
+                    <ul>
+                        <li>
+                            <NavLink href="/news" >News</NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/archive">Archive</NavLink>
+                        </li>
+                    </ul>
+                </nav>
+              </ul> 
             </header>
         )
     }
