@@ -1,18 +1,18 @@
 //outputs the image whe pressed
 
-import { DUMMY_NEWS } from "@/dummy-news";
+import { getNewsItem } from "@/app/lib/news";
 import { notFound } from "next/navigation";
 
 //param propertygive acces to slug because nested routes 
 //inside of dynamic route will also have access in this news item slug
-export default function ImagePage({params}) {
+export default async function ImagePage({params}) {
     // Copying the logic from earlier 
-    const newsSlug = params.slug
-    const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsSlug)
+    const newsItenSlug = params.slug
+    const newsItem = await getNewsItem(newsItenSlug);
 
     if (!newsItem) {
         // Debug: Inform if no item was found
-        console.error("News item not found for slug:", newsSlug);
+        console.error("News item not found for slug:", newsItenSlug);
         return notFound(); // This triggers the 404 page
     }
     

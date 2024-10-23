@@ -1,12 +1,12 @@
-import { DUMMY_NEWS } from "@/dummy-news";
+import { getNewsItem } from "@/app/lib/news";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default function NewsDetailPage({params}){
+export default async function NewsDetailPage({params}){
     // holds the key for every id slugs
     const newsSlug = params.slug
-    //dummy news finds newsItem and turns them into slug == newSLug
-    const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsSlug)
+    //beacuse we dont use dummy data now
+    const newsItem = await getNewsItem(newsSlug);
 
     if (!newsItem) {
         // Debug: Inform if no item was found

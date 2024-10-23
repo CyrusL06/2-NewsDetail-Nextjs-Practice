@@ -9,7 +9,7 @@ import {
 } from '@/app/lib/news';
 import NewsList from '@/components/main-header/news-list';
 
-export default function FilteredNewsPage({ params }) {
+export default async function FilteredNewsPage({ params }) {
   const filter = params.filter;
   
   
@@ -17,15 +17,15 @@ export default function FilteredNewsPage({ params }) {
   const selectedMonth = filter?.[1];
 
   let news;
-  let links = getAvailableNewsYears();
+  let links = await getAvailableNewsYears();
 
   if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
+    news = await getNewsForYear(selectedYear);
     links = getAvailableNewsMonths(selectedYear);
   }
 
   if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
+    news = await getNewsForYearAndMonth(selectedYear, selectedMonth);
     links = [];
   }
 
@@ -37,10 +37,16 @@ export default function FilteredNewsPage({ params }) {
 
   // Throws invalid path segment for selected Year && Month
   // if we have selectedYear which does not includes in (selectedYear)
+
+  
+  const availableYears = await getAvailableNewsYears();
+  const availableMonths = getAvailableNewsMonths;
+  // getAvailableNewsMonths(selectedYear)
+
   if (
-    (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
+    (selectedYear && !availableYears.includes(selectedYear)) ||
     (selectedMonth &&
-      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
+      !availableMonths(selectedYear).includes(selectedMonth))
   ) {
     throw new Error('Invalid filter.');
   }

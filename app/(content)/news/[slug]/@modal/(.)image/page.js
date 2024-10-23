@@ -1,22 +1,17 @@
-"use client"
-//Copied the same code as images page.js
 
-import { DUMMY_NEWS } from "@/dummy-news";
-import { notFound, useRouter } from "next/navigation";
+import { getNewsItem } from "@/app/lib/news";
+import ModalBackDrop from "@/components/modal-backdrop";
 
 //param propertygive acces to slug because nested routes 
 //inside of dynamic route will also have access in this news item slug
-export default function InterceptedImagePage({params}) {
-    // navigating around progmatically
-    const router = useRouter();
-
-    // Copying the logic from earlier 
-    const newsSlug = params.slug
-    const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsSlug)
+export default async function InterceptedImagePage({params}) {
+     // Copying the logic from earlier 
+    const newsItemSlug = params.slug;
+    const newsItem = await getNewsItem(newsItemSlug);
 
     if (!newsItem) {
         // Debug: Inform if no item was found
-        console.error("News item not found for slug:", newsSlug);
+        console.error("News item not found for slug:", newsItemSlug);
         return notFound(); // This triggers the 404 page
     }
     
@@ -25,7 +20,8 @@ export default function InterceptedImagePage({params}) {
 
     return (
         <>
-        <div className="modal-backdrop" onClick={router.back}>
+            {/* Turn into component because you cant use await on client side */}
+            <ModalBackDrop/>
             <dialog className="modal" open >
             <div className="fullscreen-image">
                 <img 
@@ -35,7 +31,7 @@ export default function InterceptedImagePage({params}) {
                 />
             </div>
             </dialog>
-        </div>
+        
         
         </>
     );
