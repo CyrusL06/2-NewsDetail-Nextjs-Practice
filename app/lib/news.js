@@ -7,9 +7,10 @@ import { DUMMY_NEWS } from '@/dummy-news';
 //give access to the db
 const db = sql('data.db')
 
-export function getAllNews() {
+export async function getAllNews() {
                                               //return and store all data 
   const news = db.prepare('SELECT * FROM news').all();
+  await new Promise(resolve => setTimeout (resolve, 2000));
   return news;
 }
 

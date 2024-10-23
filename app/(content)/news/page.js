@@ -6,7 +6,9 @@ import NewsList from "@/components/main-header/news-list";
 
 export default async function NewsPage(){
     //because our database is within our server
-    const news = getAllNews();
+    // when u own the database
+    //add await for the promise
+    const news = await getAllNews();
 
     return(
         <>
