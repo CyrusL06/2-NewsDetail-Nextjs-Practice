@@ -1,10 +1,16 @@
 // Functionality
 
-
+import sql from 'better-sqlite3'
 import { DUMMY_NEWS } from '@/dummy-news';
 
+//path relative to the root
+//give access to the db
+const db = sql('data.db')
+
 export function getAllNews() {
-  return DUMMY_NEWS;
+                                              //return and store all data 
+  const news = db.prepare('SELECT * FROM news').all();
+  return news;
 }
 
 export function getLatestNews() {

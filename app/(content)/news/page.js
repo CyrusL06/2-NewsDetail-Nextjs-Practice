@@ -1,20 +1,12 @@
 //NExt Js way to fetch data from a back-END
 
+import { getAllNews } from "@/app/lib/news";
 import NewsList from "@/components/main-header/news-list";
 
 
 export default async function NewsPage(){
-            // fetching the backend
-        //u can use fetch in a direct comonent
-    const response = await fetch('http://localhost:8080/news');
-
-    if(!response.ok) {
-        throw new Error('Failed to Fetch')
-    }
-
-    const news = await response.json();
-
-     let newsContent;
+    //because our database is within our server
+    const news = getAllNews();
 
     return(
         <>
